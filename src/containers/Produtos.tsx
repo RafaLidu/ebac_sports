@@ -1,43 +1,19 @@
-import { Produto as ProdutoType } from '../App'
-import Produto from '../components/Produto'
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-import * as S from './styles'
+export const productsApi = createApi({
+  reducerPath: 'productsApi',
+  baseQuery: fetchBaseQuery({ baseUrl: 'https://api.exemplo.com' }),
+  endpoints: (builder) => ({
+    getProducts: builder.query({
+      query: () => 'products',
+    }),
+  }),
+});
 
-type Props = {
-  produtos: ProdutoType[]
-  favoritos: ProdutoType[]
-  adicionarAoCarrinho: (produto: ProdutoType) => void
-  favoritar: (produto: ProdutoType) => void
-}
+export const { useGetProductsQuery } = productsApi;
 
-const ProdutosComponent = ({
-  produtos,
-  favoritos,
-  adicionarAoCarrinho,
-  favoritar
-}: Props) => {
-  const produtoEstaNosFavoritos = (produto: ProdutoType) => {
-    const produtoId = produto.id
-    const IdsDosFavoritos = favoritos.map((f) => f.id)
+const Produtos = () => {
+  return <div>Lista de produtos</div>;
+};
 
-    return IdsDosFavoritos.includes(produtoId)
-  }
-
-  return (
-    <>
-      <S.Produtos>
-        {produtos.map((produto) => (
-          <Produto
-            estaNosFavoritos={produtoEstaNosFavoritos(produto)}
-            key={produto.id}
-            produto={produto}
-            favoritar={favoritar}
-            aoComprar={adicionarAoCarrinho}
-          />
-        ))}
-      </S.Produtos>
-    </>
-  )
-}
-
-export default ProdutosComponent
+export default Produtos;
