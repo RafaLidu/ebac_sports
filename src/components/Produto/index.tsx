@@ -5,7 +5,7 @@ type Props = {
   produto: ProdutoType
   aoComprar: (produto: ProdutoType) => void
   favoritar: (produto: ProdutoType) => void
-  estaNosFavoritos: boolean
+  favoritos: ProdutoType[] // Adicione isso
 }
 
 export const paraReal = (valor: number) =>
@@ -13,12 +13,9 @@ export const paraReal = (valor: number) =>
     valor
   )
 
-const ProdutoComponent = ({
-  produto,
-  aoComprar,
-  favoritar,
-  estaNosFavoritos
-}: Props) => {
+const ProdutoComponent = ({ produto, aoComprar, favoritar, favoritos }: Props) => {
+  const estaNosFavoritos = (favoritos ?? []).some((fav) => fav.id === produto.id) // Corrigido!
+
   return (
     <S.Produto>
       <S.Capa>

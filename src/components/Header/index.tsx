@@ -1,6 +1,8 @@
+import { ProdutoType } from '../../types' // Corrigir o caminho da importação
+
 type Props = {
-  favoritos: any[]
-  itensNoCarrinho: any[]
+  favoritos: ProdutoType[]
+  itensNoCarrinho: ProdutoType[]
 }
 
 const Header = ({ favoritos, itensNoCarrinho }: Props) => {

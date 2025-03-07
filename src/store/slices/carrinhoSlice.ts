@@ -1,31 +1,26 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { ProdutoType } from '../../types'
 
-interface Produto {
-    id: number;
-    nome: string;
-    preco: number;
-}
-
-interface CarrinhoState {
-    items: Produto[];
+type CarrinhoState = {
+  items: ProdutoType[]
 }
 
 const initialState: CarrinhoState = {
-    items: []
-};
+  items: []
+}
 
 const carrinhoSlice = createSlice({
-    name: "carrinho",
-    initialState,
-    reducers: {
-    adicionarAoCarrinho: (state, action: PayloadAction<Produto>) => {
-      state.items = [...state.items, action.payload]; // Mantém a imutabilidade
+  name: 'carrinho',
+  initialState,
+  reducers: {
+    adicionarAoCarrinho: (state, action: PayloadAction<ProdutoType>) => {
+      state.items.push(action.payload)
     },
     removerDoCarrinho: (state, action: PayloadAction<number>) => {
-        state.items = state.items.filter(item => item.id !== action.payload);
+      state.items = state.items.filter((item) => item.id !== action.payload)
     }
-    }
-});
+  }
+})
 
-export const { adicionarAoCarrinho, removerDoCarrinho } = carrinhoSlice.actions;
-export default carrinhoSlice.reducer;
+export const { adicionarAoCarrinho, removerDoCarrinho } = carrinhoSlice.actions
+export default carrinhoSlice.reducer

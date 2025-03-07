@@ -1,30 +1,26 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { ProdutoType } from '../../types'
 
-interface Produto {
-    id: number;
-    nome: string;
-}
-
-interface FavoritosState {
-    items: Produto[];
+type FavoritosState = {
+  items: ProdutoType[]
 }
 
 const initialState: FavoritosState = {
-    items: []
-};
+  items: []
+}
 
 const favoritosSlice = createSlice({
-    name: "favoritos",
-    initialState,
-    reducers: {
-    adicionarFavorito: (state, action: PayloadAction<Produto>) => {
-      state.items = [...state.items, action.payload]; // Evita mutabilidade direta
+  name: 'favoritos',
+  initialState,
+  reducers: {
+    adicionarAosFavoritos: (state, action: PayloadAction<ProdutoType>) => {
+      state.items.push(action.payload)
     },
-    removerFavorito: (state, action: PayloadAction<number>) => {
-        state.items = state.items.filter(item => item.id !== action.payload);
+    removerDosFavoritos: (state, action: PayloadAction<number>) => {
+      state.items = state.items.filter((item) => item.id !== action.payload)
     }
-    }
-});
+  }
+})
 
-export const { adicionarFavorito, removerFavorito } = favoritosSlice.actions;
-export default favoritosSlice.reducer;
+export const { adicionarAosFavoritos, removerDosFavoritos } = favoritosSlice.actions
+export default favoritosSlice.reducer
